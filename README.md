@@ -1,4 +1,4 @@
-<h2>Organizador de figuritas del álbum panini (669)</h2>
+<h2>Organizador de figuritas del álbum panini (670)</h2>
 
 Página que permite organizar por país las figuritas que coloques en las cajas de texto.
 
