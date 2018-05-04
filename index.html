@@ -1,21 +1,44 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <title>PAGINA</title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <link rel="Shortcut Icon" href="icono.ico" type="image/x-icon" />
 
+    <title>Organizador PANINI</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    </head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    
+    <link rel="Shortcut Icon" href="icono.ico" type="image/x-icon" />
+    
+
+    <style>
+        @font-face {
+            font-family: "Russia";
+            src: url("Russia2018.ttf");
+        }
+    </style>
+
     <body>
 
-        <div class="jumbotron text-center" style="margin-bottom:0">
-            <h1>ORGANIZADOR DE LÁMINAS PANINI</h1>
+        <div class="jumbotron text-center" style="margin-bottom:0;background-image: url(fondo.jpg);">
+            <h1 style="font-family: Russia;color:white;">ORGANIZADOR DE LÁMINAS PANINI</h1>
         </div>
         <div class="container" style="margin-top:30px">
+            <div class="row">
+                <div class="col-sm" style="margin-bottom:30px;">
+                    <h2>Seleccione la versión del álbum</h2>
+                    <input type="hidden" id="ap_version" value="670">
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                        <label class="btn btn-secondary active" id="btn_v670">
+                            <input type="radio"  onclick="changeVersion('670', 'btn_v670', 'btn_v682')" autocomplete="off"> VERSIÓN 670
+                        </label>
+                        <label class="btn btn-secondary disabled" id="btn_v682">
+                            <input type="radio"  onclick="/*changeVersion('682', 'btn_v682', 'btn_v670')*/" autocomplete="off"> VERSIÓN 682
+                        </label>
+
+                    </div>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-sm">
                     <h2>Organizar duplicadas por país</h2>
@@ -39,7 +62,8 @@
                         </div>
                         <div class="form-group">
                             <div class="col-sm-10">
-                                <button type="button" onclick="limpiarTA('sal_cambio','org_cambio');" class="btn btn-default" id="btn_limpiar_c">Limpiar</button>
+                                <button type="button" onclick="limpiarTA('sal_cambio', 'org_cambio');" class="btn btn-info" id="btn_limpiar_c">Limpiar</button>
+                                <button type="button" onclick="ctrlC('sal_cambio');" class="btn btn-success" style="float:right;" id="btn_limpiar_f">Copiar</button>
                             </div>
                         </div>
                     </form>
@@ -66,7 +90,8 @@
                         </div>
                         <div class="form-group">
                             <div class="col-sm-10">
-                                <button type="button" onclick="limpiarTA('sal_faltantes','org_faltantes');" class="btn btn-default" id="btn_limpiar_f">Limpiar</button>
+                                <button type="button" onclick="limpiarTA('sal_faltantes', 'org_faltantes');" class="btn btn-info" id="btn_limpiar_f">Limpiar</button>
+                                <button type="button" onclick="ctrlC('sal_faltantes');" class="btn btn-success" style="float:right;"  id="btn_limpiar_f">Copiar</button>
                             </div>
                         </div>
                     </form>
@@ -78,6 +103,57 @@
           <p>Footer</p>
         </div> -->
         <script type="text/javascript">
+            function changeVersion(ver, el1, el2) {
+                $('#ap_version').val(ver);
+                var id_active = '#' + el1;
+                var id_inactive = '#' + el2;
+                $(id_active).addClass('active');
+                if ($(id_inactive).hasClass('active')) {
+                    $(id_inactive).removeClass('active');
+                }
+
+            }
+            function deselectAll() {
+                var element = document.activeElement;
+
+                if (element && /INPUT|TEXTAREA/i.test(element.tagName)) {
+                    if ('selectionStart' in element) {
+                        element.selectionEnd = element.selectionStart;
+                    }
+                    element.blur();
+                }
+
+                if (window.getSelection) { // All browsers, except IE <=8
+                    window.getSelection().removeAllRanges();
+                } else if (document.selection) { // IE <=8
+                    document.selection.empty();
+                }
+            }
+            function selectText(element) {
+                if (/INPUT|TEXTAREA/i.test(element.tagName)) {
+                    element.focus();
+                    if (element.setSelectionRange) {
+                        element.setSelectionRange(0, element.value.length);
+                    } else {
+                        element.select();
+                    }
+                    return;
+                }
+
+                if (window.getSelection) { // All browsers, except IE <=8
+                    window.getSelection().selectAllChildren(element);
+                } else if (document.body.createTextRange) { // IE <=8
+                    var range = document.body.createTextRange();
+                    range.moveToElementText(element);
+                    range.select();
+                }
+            }
+            function ctrlC(el) {
+                var copytxt = document.getElementById(el);
+                selectText(copytxt);
+                document.execCommand("Copy");
+                deselectAll(copytxt);
+            }
             function getNumbers(txt, nro, arr) {
                 var dig = txt.charAt(0);
                 var tam = txt.length;
@@ -145,7 +221,7 @@
                     'JAPÓN': ['640', '641', '642', '643', '644', '645', '646', '647', '648', '649', '650', '651', '652', '653', '654', '655', '656', '657', '658', '659'],
                     'LEYENDAS': ['660', '661', '662', '663', '664', '665', '666', '667', '668', '669']
                 };
-                
+
                 var returnArr = {
                     'ESPECIALES': [],
                     'ESTADIOS': [],
@@ -211,13 +287,13 @@
                 $.each(returnArr, function (country, arrVal) {
                     if (arrVal.length > 0) {
                         txt += country + ': ';
-                        
+
                         $.each(arrVal, function (i, val) {
-                            if (i === arrVal.length-1) {
+                            if (i === arrVal.length - 1) {
                                 txt += val;
-                            }else{
+                            } else {
                                 txt += val + '-';
-                            }    
+                            }
                         });
                         txt += salto;
                     }
@@ -226,25 +302,25 @@
             }
             function fillTextArea(el, tipo, arr) {
                 var txt = '';
-                var bycountries='';
+                var bycountries = '';
                 var salto = '\n';
                 if (tipo === 'A') {
                     txt += 'Figuras disponibles para cambio:';
                     txt += salto;
-                    bycountries=byCountries(arr.nro);
-                    if(bycountries.length===0){
-                        txt='No se encontraron figuritas con la numeración ingresada.';
-                    }else{
-                        txt+=bycountries;
+                    bycountries = byCountries(arr.nro);
+                    if (bycountries.length === 0) {
+                        txt = 'No se encontraron figuritas con la numeración ingresada.';
+                    } else {
+                        txt += bycountries;
                     }
                 } else if (tipo === 'B') {
                     txt += 'Figuras faltantes:';
                     txt += salto;
-                    bycountries=byCountries(arr.nro);
-                    if(bycountries.length===0){
-                        txt='No se encontraron figuritas con la numeración ingresada.';
-                    }else{
-                        txt+=bycountries;
+                    bycountries = byCountries(arr.nro);
+                    if (bycountries.length === 0) {
+                        txt = 'No se encontraron figuritas con la numeración ingresada.';
+                    } else {
+                        txt += bycountries;
                     }
                 }
                 el.val(txt);
@@ -267,9 +343,9 @@
 //                console.log(arrNros);
                 fillTextArea($('#sal_faltantes'), 'B', arrNros);
             });
-            function limpiarTA(el1,el2){
-                $('#'+el1).val('');
-                $('#'+el2).val('');
+            function limpiarTA(el1, el2) {
+                $('#' + el1).val('');
+                $('#' + el2).val('');
             }
         </script>
     </body>
