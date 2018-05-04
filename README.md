@@ -2,9 +2,11 @@
 
 Página que permite organizar por país las figuritas que coloques en las cajas de texto.
 
-El sistema valida cada caracter ingresado en la caja de texto y recoje sólo si son números, para luego validarlos y mostrarlos organizados por país
+<hr/> 
+El sistema valida cada caracter ingresado en la caja de texto y recoje sólo si son números, para luego validarlos y mostrarlos organizados por país.
 
-Instrucciones
+
+<b>Instrucciones</b>
 
 -Copia y pega cualquier texto que contenga tus figuritas, en cualquier formato, pueden tener de origen excel, word, aplicaciones como "Láminas" y demás.
 -Haz clic en transformar.
