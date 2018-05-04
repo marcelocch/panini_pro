@@ -2,10 +2,9 @@
 
 Página que permite organizar por país las figuritas que coloques en las cajas de texto.
 
-<hr/> 
+<hr> 
 El sistema valida cada caracter ingresado en la caja de texto y recoje sólo si son números, para luego validarlos y mostrarlos organizados por país.
-
-
+<hr> 
 
 
 <b>Instrucciones</b>
